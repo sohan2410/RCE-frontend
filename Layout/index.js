@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { withRouter } from "next/router";
+import React, { useEffect, useState } from "react"
+import { withRouter } from "next/router"
 
-import Navbar from "../Layout/Navbar";
-import Footer from "../Layout/Footer";
+import Navbar from "../Layout/Navbar"
+import Footer from "../Layout/Footer"
 function Layout({ children }) {
   return (
-    <div className="">
+    <div className="w-full h-screen">
       <Navbar />
-      <div className="">{children}</div>
-      <div className="">
-        <Footer />
-      </div>
+      {children}
+      <Footer />
     </div>
-  );
+  )
 }
 
-export default withRouter(Layout);
+export default withRouter(Layout)
