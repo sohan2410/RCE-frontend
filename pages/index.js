@@ -1,11 +1,10 @@
 import Head from "next/head"
 import Image from "next/image"
 import { Inter } from "@next/font/google"
-import styles from "@/styles/Home.module.css"
-// import ReactQuill from "react-quill"
-// import "react-quill/dist/quill.snow.css"
-const inter = Inter({ subsets: ["latin"] })
 
+import styles from "@/styles/Home.module.css"
+import Dashboard from "@/interface/Dashboard"
+const inter = Inter({ subsets: ["latin"] })
 export default function Home() {
   return (
     <>
@@ -15,8 +14,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="text-orange-800">main</main>
-      {/* <ReactQuill theme="snow" value={value} onChange={setValue} /> */}
+      <main className="h-5/6">
+        <Dashboard />
+      </main>
     </>
   )
 }
