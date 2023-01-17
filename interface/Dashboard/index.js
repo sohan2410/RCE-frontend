@@ -55,6 +55,7 @@ export default function Dashboard() {
   return (
     <div className="h-5/6 flex">
       <Sidebar />
+
       <div className="w-full flex-col h-full">
         <div className="p-1 w-full flex justify-between">
           <p>Language</p>
