@@ -12,13 +12,13 @@ int main() {
 
     return 0;
 }`,
-  py: `print("Hello world")`,
+  python: `print("Hello world")`,
   java: `class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
 }`,
-  js: `console.log("Hello, World")`,
+  javascript: `console.log("Hello, World")`,
 }
 export const boilerplate = (lang) => {
   if (code[lang]) return code[lang]

@@ -9,8 +9,8 @@ import { DiJavascript1, DiJava } from "react-icons/di"
 const Ide = dynamic(() => import("../../components/Ide"), { ssr: false })
 
 export default function Dashboard() {
-  const [lang, setLang] = useState("")
-  console.log(lang)
+  const [lang, setLang] = useState("cpp")
+
   const Sidebar = () => {
     return (
       <div className="w-20">
@@ -23,21 +23,21 @@ export default function Dashboard() {
         </button>
         <button
           type="submit"
-          onClick={() => setLang("c++")}
+          onClick={() => setLang("cpp")}
           className=" w-full m-auto p-2 flex justify-center item-center hover:bg-purple-500 dark:hover:bg-green-500"
         >
           <FaPython className="w-10 h-10" />
         </button>
         <button
           type="submit"
-          onClick={() => setLang("js")}
+          onClick={() => setLang("javascript")}
           className=" w-full m-auto p-2 flex justify-center item-center hover:bg-purple-500 dark:hover:bg-green-500"
         >
           <DiJavascript1 className="w-10 h-10" />
         </button>
         <button
           type="submit"
-          onClick={() => setLang("py")}
+          onClick={() => setLang("python")}
           className=" w-full m-auto p-2 flex justify-center item-center hover:bg-purple-500 dark:hover:bg-green-500"
         >
           <FaPython className="w-10 h-10" />
@@ -62,7 +62,9 @@ export default function Dashboard() {
           <button className="py-1 px-3 m-2 bg-purple-500 rounded-md hover:bg-purple-800 dark:hover:bg-green-800 dark:bg-green-500">Run</button>
         </div>
         <div className=" w-full flex ">
-          <div className="w-2/3 h-full">IDE</div>
+          <div className="w-2/3 h-full">
+            <Ide lang={lang} />
+          </div>
           <div className="w-1/3 h-full">
             <div className="h-1/2">input box</div>
             <div className=" h-1/2">output box</div>
