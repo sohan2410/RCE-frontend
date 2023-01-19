@@ -76,8 +76,16 @@ export default function Dashboard() {
     )
   }
   useEffect(() => {
-    setText(boilerplate(lang))
+    const data = window.localStorage.getItem(`${lang}-localStorage`)
+    console.log(data)
+    if (data !== null) setText(JSON.parse(data))
+    else setText(boilerplate(lang))
   }, [lang])
+
+  useEffect(() => {
+    window.localStorage.setItem(`${lang}-localStorage`, JSON.stringify(text))
+  }, [lang, text])
+
   return (
     <div className="h-5/6 flex">
       <Sidebar />
