@@ -77,13 +77,17 @@ export default function Dashboard() {
   }
   useEffect(() => {
     const data = window.localStorage.getItem(`${lang}-localStorage`)
-    console.log(data)
     if (data !== null) setText(JSON.parse(data))
     else setText(boilerplate(lang))
   }, [lang])
 
   useEffect(() => {
-    window.localStorage.setItem(`${lang}-localStorage`, JSON.stringify(text))
+    const dataDebounce = setTimeout(() => {
+      window.localStorage.setItem(`${lang}-localStorage`, JSON.stringify(text))
+    }, 1000)
+    return () => {
+      clearTimeout(dataDebounce)
+    }
   }, [lang, text])
 
   return (
