@@ -15,25 +15,16 @@ languages.forEach((lang) => {
   require(`ace-builds/src-noconflict/mode-${lang}`)
   require(`ace-builds/src-noconflict/snippets/${lang}`)
 })
-export default function Ide({ lang }) {
+export default function Ide({ lang, text, onChange }) {
   const [mode, setMode] = useState(lang === "c" || lang === "cpp" ? "c_cpp" : lang)
-  const [text, setText] = useState(boilerplate(lang))
   const [fontSize, setFontSize] = useState(14)
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-    setText(boilerplate(lang))
     if (lang === "c" || lang === "cpp") setMode("c_cpp")
     else {
       setMode(lang)
     }
-    setLoading(false)
   }, [lang])
-
-  const onChange = (value) => {
-    setText(value)
-  }
 
   return (
     <>
@@ -43,18 +34,17 @@ export default function Ide({ lang }) {
         <option value={18}>18</option>
         <option value={20}>20</option>
       </select>
-      {!loading ? (
-        <AceEditor
-          mode={mode}
-          theme="solarized_dark"
-          fontSize={fontSize}
-          onChange={onChange}
-          name="UNIQUE_ID_OF_DIV"
-          defaultValue={text}
-          editorProps={{ $blockScrolling: true }}
-          setOptions={{ enableBasicAutocompletion: true, enableLiveAutocompletion: true }}
-        />
-      ) : null}
+      <AceEditor
+        mode={mode}
+        theme="solarized_dark"
+        fontSize={fontSize}
+        onChange={onChange}
+        name="UNIQUE_ID_OF_DIV"
+        // defaultValue={text}
+        value={text}
+        editorProps={{ $blockScrolling: true }}
+        setOptions={{ enableBasicAutocompletion: true, enableLiveAutocompletion: true }}
+      />
     </>
   )
 }
