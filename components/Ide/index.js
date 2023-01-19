@@ -9,16 +9,16 @@ import "ace-builds/src-noconflict/theme-github"
 import "ace-builds/src-min-noconflict/ext-searchbox"
 import "ace-builds/src-noconflict/ext-language_tools"
 import { boilerplate } from "@/utils/boilerplate"
+import { useTheme } from "next-themes"
 
 const languages = ["python", "javascript", "java"]
 languages.forEach((lang) => {
   require(`ace-builds/src-noconflict/mode-${lang}`)
   require(`ace-builds/src-noconflict/snippets/${lang}`)
 })
-export default function Ide({ lang }) {
+export default function Ide({ lang, fontSize }) {
   const [mode, setMode] = useState(lang === "c" || lang === "cpp" ? "c_cpp" : lang)
   const [text, setText] = useState(boilerplate(lang))
-  const [fontSize, setFontSize] = useState(14)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -34,27 +34,24 @@ export default function Ide({ lang }) {
   const onChange = (value) => {
     setText(value)
   }
-
+  const { systemTheme, theme, setTheme } = useTheme()
   return (
-    <>
-      <select name="fontSize" id="fontSize" onChange={(e) => setFontSize(parseInt(e.target.value))}>
-        <option value={14}>14</option>
-        <option value={16}>16</option>
-        <option value={18}>18</option>
-        <option value={20}>20</option>
-      </select>
+    <div className="w-full p-4">
       {!loading ? (
         <AceEditor
           mode={mode}
-          theme="solarized_dark"
+          theme={theme === "dark" ? "solarized_dark" : "github"}
           fontSize={fontSize}
           onChange={onChange}
+          height="25rem"
+          width="80%"
           name="UNIQUE_ID_OF_DIV"
           defaultValue={text}
+          value={text}
           editorProps={{ $blockScrolling: true }}
           setOptions={{ enableBasicAutocompletion: true, enableLiveAutocompletion: true }}
         />
       ) : null}
-    </>
+    </div>
   )
 }

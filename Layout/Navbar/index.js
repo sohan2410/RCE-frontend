@@ -13,7 +13,7 @@ export default function Navbar() {
   const currentTheme = theme === "system" ? systemTheme : theme
 
   return (
-    <div className="w-full flex justify-between">
+    <div className="w-full flex justify-between px-2 py-4">
       <div className="font-bold">
         Remote <span className="text-purple-800 dark:text-green-500 font-bold">Code</span> Executor
       </div>
