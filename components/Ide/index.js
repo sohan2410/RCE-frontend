@@ -22,13 +22,10 @@ export default function Ide({ lang, fontSize }) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-    setText(boilerplate(lang))
     if (lang === "c" || lang === "cpp") setMode("c_cpp")
     else {
       setMode(lang)
     }
-    setLoading(false)
   }, [lang])
 
   const onChange = (value) => {

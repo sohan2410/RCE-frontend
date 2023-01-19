@@ -12,6 +12,7 @@
     "@heroicons/react": "^1.0.6",
     "@next/font": "13.1.2",
     "ace-builds": "^1.14.0",
+    "axios": "^1.2.3",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2",
     "next": "13.1.2",
