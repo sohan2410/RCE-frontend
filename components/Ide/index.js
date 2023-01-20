@@ -16,10 +16,12 @@ languages.forEach((lang) => {
   require(`ace-builds/src-noconflict/mode-${lang}`)
   require(`ace-builds/src-noconflict/snippets/${lang}`)
 })
-export default function Ide({ lang, fontSize }) {
+export default function Ide({ text, lang, fontSize, onChange }) {
   const [mode, setMode] = useState(lang === "c" || lang === "cpp" ? "c_cpp" : lang)
-  const [text, setText] = useState(boilerplate(lang))
   const [loading, setLoading] = useState(false)
+  // console.log("lang", lang, boilerplate(lang))
+  // console.log("text", text)
+  // console.log("mode", mode)
 
   useEffect(() => {
     if (lang === "c" || lang === "cpp") setMode("c_cpp")
@@ -28,9 +30,6 @@ export default function Ide({ lang, fontSize }) {
     }
   }, [lang])
 
-  const onChange = (value) => {
-    setText(value)
-  }
   const { systemTheme, theme, setTheme } = useTheme()
   return (
     <div className="w-full p-4">
@@ -43,7 +42,6 @@ export default function Ide({ lang, fontSize }) {
           height="25rem"
           width="80%"
           name="UNIQUE_ID_OF_DIV"
-          defaultValue={text}
           value={text}
           editorProps={{ $blockScrolling: true }}
           setOptions={{ enableBasicAutocompletion: true, enableLiveAutocompletion: true }}
