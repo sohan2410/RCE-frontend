@@ -7,7 +7,7 @@ export default function Button({ src, Click, language }) {
       onClick={() => Click(language)}
       className="w-full m-auto p-4 flex justify-center item-center hover:bg-gray-200 dark:hover:bg-gray-800"
     >
-      <Image src={src} />
+      <Image src={src} width={50} height={50} />
     </button>
   )
 }
