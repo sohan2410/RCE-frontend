@@ -5,7 +5,7 @@ import axios from "axios"
 import Sidebar from "../Sidebar"
 import IdeNav from "@/components/IdeNav"
 import { ILang } from "@/interface/index"
-
+import { API_PATH } from "../../../common/Constants"
 const Ide = dynamic(() => import("../../components/Ide"), { ssr: false })
 
 export default function Dashboard() {
@@ -17,7 +17,7 @@ export default function Dashboard() {
   const handleSubmit = async (): Promise<void> => {
     setLoading(true)
     setOutput("")
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/code/execute`
+    const url = `${API_PATH}/code/execute`
     const format = { javascript: "js", c: "c", cpp: "cpp", java: "java", python: "py" }
     try {
       const { data } = await axios.post(url, {
