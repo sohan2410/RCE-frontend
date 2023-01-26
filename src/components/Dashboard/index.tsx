@@ -8,17 +8,18 @@ import { ILang } from "@/interface/index"
 import { API_PATH } from "../../../common/Constants"
 const Ide = dynamic(() => import("../../components/Ide"), { ssr: false })
 
+const validFormat = { c: "c", cpp: "cpp", js: "javascript", py: "python", java: "java" }
 export default function Dashboard() {
   const [lang, setLang] = useState<string>("c")
   const [fontSize, setFontSize] = useState<number>(14)
   const [loading, setLoading] = useState<boolean>(false)
   const [text, setText] = useState<string>("")
   const [output, setOutput] = useState<string>("")
+  const format = { javascript: "js", c: "c", cpp: "cpp", java: "java", python: "py" }
   const handleSubmit = async (): Promise<void> => {
     setLoading(true)
     setOutput("")
     const url = `${API_PATH}/code/execute`
-    const format = { javascript: "js", c: "c", cpp: "cpp", java: "java", python: "py" }
     try {
       const { data } = await axios.post(url, {
         format: format[lang as keyof ILang],
@@ -40,6 +41,28 @@ export default function Dashboard() {
   const fontSizeHandle = (value: string): void => {
     setFontSize(parseInt(value))
   }
+  const handleFileChange = async (file: FileList | null): Promise<void> => {
+    if (file?.length) {
+      const fileFormat = file[0].name.split(".").pop() || ""
+      if (Object.keys(validFormat).includes(fileFormat)) {
+        var reader = new FileReader()
+        reader.readAsText(file[0], "UTF-8")
+        reader.onload = (e) => {
+          window.localStorage.setItem(`${fileFormat}-localStorage`, JSON.stringify(e?.target?.result))
+          setLang(fileFormat)
+        }
+      }
+    }
+  }
+  const handleFileDownload = (): void => {
+    var data = new Blob([text])
+    var file = window.URL.createObjectURL(data)
+    let fileLink
+    fileLink = document.createElement("a")
+    fileLink.href = file
+    fileLink.setAttribute("download", `${Date.now()}.${format[lang as keyof ILang]}`)
+    fileLink.click()
+  }
   useEffect(() => {
     const data = window.localStorage.getItem(`${lang}-localStorage`)
     if (data !== null) setText(JSON.parse(data))
@@ -59,10 +82,10 @@ export default function Dashboard() {
       <Sidebar click={onClick} />
 
       <div className="w-full flex-col h-full bg-gray-200 dark:bg-gray-800">
-        <IdeNav Fontsize={fontSizeHandle} Lang={lang} HandleSubmit={handleSubmit} />
+        <IdeNav Fontsize={fontSizeHandle} Lang={lang} HandleSubmit={handleSubmit} handleFileChange={handleFileChange} handleFileDownload={handleFileDownload} />
         <div className=" w-full flex h-5/6 ">
           <div className="w-2/3">
-            <Ide lang={lang} text={text} onChange={onChange} fontSize={fontSize} />
+            <Ide lang={lang} text={text} onChange={onChange} fontSize={fontSize} handleFileChange={handleFileChange} />
           </div>
           <div className="w-1/3 h-full">
             <div className="h-1/2 p-2">Input</div>

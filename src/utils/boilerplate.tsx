@@ -14,12 +14,14 @@ const code = {
       return 0;
   }`,
   python: `print("Hello world")`,
+  py: `print("Hello world")`,
   java: `class HelloWorld {
       public static void main(String[] args) {
           System.out.println("Hello, World!");
       }
   }`,
   javascript: `console.log("Hello, World")`,
+  js: `console.log("Hello, World")`,
 }
 export const boilerplate = (lang: string): string => {
   if (code[lang as keyof ILang]) return code[lang as keyof ILang]

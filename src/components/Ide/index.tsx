@@ -15,7 +15,7 @@ languages.forEach((lang) => {
   require(`ace-builds/src-noconflict/mode-${lang}`)
   require(`ace-builds/src-noconflict/snippets/${lang}`)
 })
-export default function Ide({ text, lang, fontSize, onChange }: IIde): JSX.Element {
+export default function Ide({ text, lang, fontSize, onChange, handleFileChange }: IIde): JSX.Element {
   const [mode, setMode] = useState<string>(lang === "c" || lang === "cpp" ? "c_cpp" : lang)
 
   useEffect(() => {
@@ -26,8 +26,27 @@ export default function Ide({ text, lang, fontSize, onChange }: IIde): JSX.Eleme
   }, [lang])
 
   const { systemTheme, theme, setTheme } = useTheme()
+
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    handleFileChange(e.dataTransfer.files)
+  }
+
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-4" onDrop={(e) => handleDrop(e)} onDragOver={(e) => handleDragOver(e)} onDragEnter={(e) => handleDragEnter(e)} onDragLeave={(e) => handleDragLeave(e)}>
       <AceEditor
         mode={mode}
         theme={theme === "dark" ? "solarized_dark" : "github"}
