@@ -22,7 +22,7 @@ export default function Dashboard() {
   const handleSubmit = async (): Promise<void> => {
     setLoading(true)
     setOutput("")
-    const url = `${API_PATH}/code/execute`
+    const url = `${API_PATH}/api/code/execute`
     try {
       const { data } = await axios.post(url, {
         format: format[lang as keyof ILang],
