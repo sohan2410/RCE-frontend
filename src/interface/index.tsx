@@ -31,6 +31,11 @@ export interface IIdeNav {
 export interface Input {
   handleInput: (value: string) => void
 }
+export interface Output {
+  Loading: boolean
+  Output: string
+  Error: string
+}
 export interface ISidebar {
   click: (value: string) => void
 }

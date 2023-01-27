@@ -16,12 +16,14 @@ export default function Dashboard() {
   const [fontSize, setFontSize] = useState<number>(14)
   const [loading, setLoading] = useState<boolean>(false)
   const [text, setText] = useState<string>("")
+  const [error, setError] = useState<string>("")
   const [input, setInput] = useState<string>(" ")
   const [output, setOutput] = useState<string>("")
   const format = { javascript: "js", c: "c", cpp: "cpp", java: "java", python: "py" }
   const handleSubmit = async (): Promise<void> => {
     setLoading(true)
     setOutput("")
+    setError("")
     const url = `${API_PATH}/api/code/execute`
     try {
       const { data } = await axios.post(url, {
@@ -29,8 +31,9 @@ export default function Dashboard() {
         code: text,
         input: input,
       })
-
+      console.log(data.status)
       if (data.status) setOutput(data.output)
+      else setError(data.error)
       console.log(data)
       setLoading(false)
     } catch (error) {
@@ -86,7 +89,6 @@ export default function Dashboard() {
       clearTimeout(dataDebounce)
     }
   }, [lang, text])
-  console.log("loading", loading, " ", "output", output)
   return (
     <div className="h-full flex ">
       <Sidebar click={onClick} />
@@ -102,7 +104,7 @@ export default function Dashboard() {
               <InputBox handleInput={handleInput} />
             </div>
             <div className="h-1/2 p-2 m-1">
-              <OutputBox Loading={loading} Output={output} />
+              <OutputBox Loading={loading} Output={output} Error={error} />
             </div>
           </div>
         </div>
