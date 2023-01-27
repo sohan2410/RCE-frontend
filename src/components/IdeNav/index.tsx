@@ -6,13 +6,14 @@ export default function IdeNav({ Fontsize, Lang, HandleSubmit, handleFileChange,
   const [file, setFile] = useState(null)
 
   return (
-    <div className="py-1 item-center px-2 w-full flex justify-between bg-gray-100 dark:bg-gray-700">
+    <div className="py-1 item-center px-2 w-full flex justify-between bg-gray-100 dark:bg-gray-700 item-center">
       <div className="w-1/2 flex justify-between">
         <p className="py-2">
           Language: <span className="font-bold text-purple-500 dark:text-green-500">{Lang}</span>
         </p>
         <input
           type="file"
+          className="flex justify-center h-fit my-auto"
           onChange={(e) => {
             e.preventDefault()
             handleFileChange(e.target.files)

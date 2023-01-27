@@ -28,6 +28,9 @@ export interface IIdeNav {
   handleFileChange: (file: FileList | null) => void
   handleFileDownload: () => void
 }
+export interface Input {
+  handleInput: (value: string) => void
+}
 export interface ISidebar {
   click: (value: string) => void
 }

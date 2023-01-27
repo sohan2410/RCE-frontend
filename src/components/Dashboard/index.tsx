@@ -6,6 +6,8 @@ import Sidebar from "../Sidebar"
 import IdeNav from "@/components/IdeNav"
 import { ILang } from "@/interface/index"
 import { API_PATH } from "../../../common/Constants"
+import InputBox from "../InputBox"
+import OutputBox from "../OutputBox"
 const Ide = dynamic(() => import("../../components/Ide"), { ssr: false })
 
 const validFormat = { c: "c", cpp: "cpp", js: "javascript", py: "python", java: "java" }
@@ -14,6 +16,7 @@ export default function Dashboard() {
   const [fontSize, setFontSize] = useState<number>(14)
   const [loading, setLoading] = useState<boolean>(false)
   const [text, setText] = useState<string>("")
+  const [input, setInput] = useState<string>(" ")
   const [output, setOutput] = useState<string>("")
   const format = { javascript: "js", c: "c", cpp: "cpp", java: "java", python: "py" }
   const handleSubmit = async (): Promise<void> => {
@@ -24,13 +27,19 @@ export default function Dashboard() {
       const { data } = await axios.post(url, {
         format: format[lang as keyof ILang],
         code: text,
+        input: input,
       })
+
       if (data.status) setOutput(data.output)
       console.log(data)
       setLoading(false)
     } catch (error) {
       console.log(error)
+      setLoading(false)
     }
+  }
+  const handleInput = (value: string): void => {
+    setInput(value)
   }
   const onChange = (value: string): void => {
     setText(value)
@@ -77,6 +86,7 @@ export default function Dashboard() {
       clearTimeout(dataDebounce)
     }
   }, [lang, text])
+  console.log("loading", loading, " ", "output", output)
   return (
     <div className="h-full flex ">
       <Sidebar click={onClick} />
@@ -88,10 +98,11 @@ export default function Dashboard() {
             <Ide lang={lang} text={text} onChange={onChange} fontSize={fontSize} handleFileChange={handleFileChange} />
           </div>
           <div className="w-1/3 h-full">
-            <div className="h-1/2 p-2">Input</div>
-            <div className="h-1/2">
-              {loading && <span>Loading...</span>}
-              {output && <span>{output}</span>}
+            <div className="h-1/2 p-2 m-1">
+              <InputBox handleInput={handleInput} />
+            </div>
+            <div className="h-1/2 p-2 m-1">
+              <OutputBox Loading={loading} Output={output} />
             </div>
           </div>
         </div>
