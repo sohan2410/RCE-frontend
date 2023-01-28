@@ -8,6 +8,7 @@ import { ILang } from "@/interface/index"
 import { API_PATH } from "../../../common/Constants"
 import InputBox from "../InputBox"
 import OutputBox from "../OutputBox"
+import { Input, InputD } from "../../interface/index"
 const Ide = dynamic(() => import("../../components/Ide"), { ssr: false })
 
 const validFormat = { c: "c", cpp: "cpp", js: "javascript", py: "python", java: "java" }
@@ -17,7 +18,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(false)
   const [text, setText] = useState<string>("")
   const [error, setError] = useState<string>("")
-  const [input, setInput] = useState<string>(" ")
+  const [input, setInput] = useState<string>("")
   const [output, setOutput] = useState<string>("")
   const format = { javascript: "js", c: "c", cpp: "cpp", java: "java", python: "py" }
   const handleSubmit = async (): Promise<void> => {
@@ -25,16 +26,23 @@ export default function Dashboard() {
     setOutput("")
     setError("")
     const url = `${API_PATH}/api/code/execute`
-    try {
-      const { data } = await axios.post(url, {
+    var inputData: InputD = {
+      format: format[lang as keyof ILang],
+      code: text,
+    }
+    if (input) {
+      inputData = {
         format: format[lang as keyof ILang],
         code: text,
         input: input,
-      })
+      }
+    }
+    try {
+      const { data } = await axios.post(url, inputData)
       console.log(data.status)
       if (data.status) setOutput(data.output)
       else setError(data.error)
-      console.log(data)
+      console.log("data", data)
       setLoading(false)
     } catch (error) {
       console.log(error)

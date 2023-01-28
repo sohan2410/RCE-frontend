@@ -28,6 +28,11 @@ export interface IIdeNav {
   handleFileChange: (file: FileList | null) => void
   handleFileDownload: () => void
 }
+export interface InputD {
+  format: string
+  code: string
+  input?: string
+}
 export interface Input {
   handleInput: (value: string) => void
 }
