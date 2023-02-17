@@ -15,9 +15,9 @@ export interface ILang {
 
 export interface IIde {
   lang: string
-  text: string
+  text: any
   fontSize: number
-  onChange: (value: string) => void
+  onChange: (value: string, lang: string) => void
   handleFileChange: (file: FileList) => void
 }
 
@@ -30,7 +30,7 @@ export interface IIdeNav {
 }
 export interface InputD {
   format: string
-  code: string
+  code: any
   input?: string
 }
 export interface Input {

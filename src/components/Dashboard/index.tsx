@@ -13,10 +13,10 @@ const Ide = dynamic(() => import("../../components/Ide"), { ssr: false })
 
 const validFormat = { c: "c", cpp: "cpp", js: "javascript", py: "python", java: "java" }
 export default function Dashboard() {
-  const [lang, setLang] = useState<string>("c")
+  const [lang, setLang] = useState("c")
   const [fontSize, setFontSize] = useState<number>(14)
   const [loading, setLoading] = useState<boolean>(false)
-  const [text, setText] = useState<string>("")
+  const [text, setText] = useState({ javascript: "", c: "", cpp: "", java: "", python: "" })
   const [error, setError] = useState<string>("")
   const [input, setInput] = useState<string>("")
   const [output, setOutput] = useState<string>("")
@@ -28,12 +28,12 @@ export default function Dashboard() {
     const url = `${API_PATH}/api/code/execute`
     var inputData: InputD = {
       format: format[lang as keyof ILang],
-      code: text,
+      code: text[lang],
     }
     if (input) {
       inputData = {
         format: format[lang as keyof ILang],
-        code: text,
+        code: text[lang],
         input: input,
       }
     }
@@ -53,7 +53,10 @@ export default function Dashboard() {
     setInput(value)
   }
   const onChange = (value: string): void => {
-    setText(value)
+    setText((texts) => ({
+      ...texts,
+      [lang]: value,
+    }))
   }
   const onClick = (value: string): void => {
     setLang(value)
@@ -75,7 +78,7 @@ export default function Dashboard() {
     }
   }
   const handleFileDownload = (): void => {
-    var data = new Blob([text])
+    var data = new Blob()
     var file = window.URL.createObjectURL(data)
     let fileLink
     fileLink = document.createElement("a")
@@ -86,7 +89,8 @@ export default function Dashboard() {
   useEffect(() => {
     const data = window.localStorage.getItem(`${lang}-localStorage`)
     if (data !== null) setText(JSON.parse(data))
-    else setText(boilerplate(lang))
+    else setText((texts) => ({ ...texts, [lang]: boilerplate(lang) }))
+    console.log(boilerplate(lang))
   }, [lang])
 
   useEffect(() => {
