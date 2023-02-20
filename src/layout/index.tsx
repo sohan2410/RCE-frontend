@@ -13,7 +13,8 @@ export default function Layout({ children }: IProps): JSX.Element {
   return (
     <div className="w-full h-screen">
       <Navbar />
-      {children}
+      <div className="hidden sm:block">{children}</div>
+      <div className="w-full text-center sm:hidden">Not For This Resolution</div>
       <Footer />
     </div>
   )

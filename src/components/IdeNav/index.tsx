@@ -7,9 +7,9 @@ export default function IdeNav({ Fontsize, Lang, HandleSubmit, handleFileChange,
 
   return (
     <div className="py-1 item-center px-2 w-full flex justify-between bg-gray-100 dark:bg-gray-700 item-center">
-      <div className="w-1/2 flex justify-between">
-        <p className="py-2">
-          Language: <span className="font-bold text-purple-500 dark:text-green-500">{Lang}</span>
+      <div className=" w-3/4 sm:w-4/5 md:w-2/3 lg:w-1/2 flex md:justify-between sm:justify-start">
+        <p className="h-full flex items-center">
+          Language <span className="font-bold text-purple-500 dark:text-green-500">{": " + `${Lang}`}</span>
         </p>
         <input
           type="file"
@@ -24,7 +24,7 @@ export default function IdeNav({ Fontsize, Lang, HandleSubmit, handleFileChange,
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
           </svg>
         </button>
-
+        {/* 
         <select
           name="fontSize"
           id="fontSize"
@@ -37,7 +37,7 @@ export default function IdeNav({ Fontsize, Lang, HandleSubmit, handleFileChange,
           <option value={16}>16</option>
           <option value={18}>18</option>
           <option value={20}>20</option>
-        </select>
+        </select> */}
       </div>
       <button className="py-1 px-3 m-2 bg-purple-500 rounded-md hover:bg-purple-800 dark:hover:bg-green-800 dark:bg-green-500" onClick={HandleSubmit}>
         Run

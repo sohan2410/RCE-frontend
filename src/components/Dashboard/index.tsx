@@ -107,15 +107,15 @@ export default function Dashboard() {
 
       <div className="w-full flex-col h-full bg-gray-200 dark:bg-gray-800">
         <IdeNav Fontsize={fontSizeHandle} Lang={lang} HandleSubmit={handleSubmit} handleFileChange={handleFileChange} handleFileDownload={handleFileDownload} />
-        <div className=" w-full flex h-5/6 ">
-          <div className="w-2/3">
+        <div className="w-full flex h-5/6 ">
+          <div className="sm:w-2/3 md:w-4/6 lg:w-2/3">
             <Ide lang={lang} text={text} onChange={onChange} fontSize={fontSize} handleFileChange={handleFileChange} />
           </div>
-          <div className="w-1/3 h-full">
-            <div className="h-1/2 p-2 m-1">
+          <div className="sm:w-1/3 md:w-2/6 lg:w-1/3 h-full">
+            <div className="h-1/2 p-1">
               <InputBox handleInput={handleInput} />
             </div>
-            <div className="h-1/2 p-2 m-1">
+            <div className="h-1/2 p-1">
               <OutputBox Loading={loading} Output={output} Error={error} />
             </div>
           </div>

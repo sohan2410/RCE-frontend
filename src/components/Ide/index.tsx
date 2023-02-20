@@ -52,8 +52,8 @@ export default function Ide({ text, lang, fontSize, onChange, handleFileChange }
         theme={theme === "dark" ? "solarized_dark" : "github"}
         fontSize={fontSize}
         onChange={onChange}
-        height="25rem"
-        width="80%"
+        height="29rem"
+        width="100%"
         name="UNIQUE_ID_OF_DIV"
         value={text[lang]}
         editorProps={{ $blockScrolling: true }}
