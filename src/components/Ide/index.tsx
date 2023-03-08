@@ -44,7 +44,6 @@ export default function Ide({ text, lang, fontSize, onChange, handleFileChange }
     e.stopPropagation()
     handleFileChange(e.dataTransfer.files)
   }
-  console.log(text, "47", text[lang], "47", lang)
   return (
     <div className="w-full p-4" onDrop={(e) => handleDrop(e)} onDragOver={(e) => handleDragOver(e)} onDragEnter={(e) => handleDragEnter(e)} onDragLeave={(e) => handleDragLeave(e)}>
       <AceEditor

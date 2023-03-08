@@ -25,24 +25,23 @@ export default function Dashboard() {
     setLoading(true)
     setOutput("")
     setError("")
-    const url = `${API_PATH}/api/code/execute`
+    const url = `${API_PATH}`
     var inputData: InputD = {
       format: format[lang as keyof ILang],
-      code: text[lang],
+      code: (text as any)[lang],
     }
     if (input) {
       inputData = {
         format: format[lang as keyof ILang],
-        code: text[lang],
+        code: (text as any)[lang],
         input: input,
       }
     }
     try {
-      const { data } = await axios.post(url, inputData)
-      console.log(data.status)
-      if (data.status) setOutput(data.output)
-      else setError(data.error)
-      console.log("data", data)
+      const { data } = await axios.post(API_PATH, inputData)
+      console.log(data)
+      if (data.status) setOutput(data.result)
+      else setError(data.message)
       setLoading(false)
     } catch (error) {
       console.log(error)
