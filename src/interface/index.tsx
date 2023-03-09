@@ -24,6 +24,7 @@ export interface IIde {
 export interface IIdeNav {
   Fontsize: (value: string) => void
   Lang: string
+  Loading: boolean
   HandleSubmit: () => Promise<void>
   handleFileChange: (file: FileList | null) => void
   handleFileDownload: () => void

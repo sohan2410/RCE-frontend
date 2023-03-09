@@ -1,8 +1,7 @@
 import { IIdeNav } from "@/interface"
 import React, { useState } from "react"
-
 const fileTypes: Array<string> = ["c", "cpp", "py", "js", "java"]
-export default function IdeNav({ Fontsize, Lang, HandleSubmit, handleFileChange, handleFileDownload }: IIdeNav): JSX.Element {
+export default function IdeNav({ Fontsize, Lang, Loading, HandleSubmit, handleFileChange, handleFileDownload }: IIdeNav): JSX.Element {
   const [file, setFile] = useState(null)
 
   return (
@@ -39,9 +38,21 @@ export default function IdeNav({ Fontsize, Lang, HandleSubmit, handleFileChange,
           <option value={20}>20</option>
         </select> */}
       </div>
-      <button className="py-1 px-3 m-2 bg-purple-500 rounded-md hover:bg-purple-800 dark:hover:bg-green-800 dark:bg-green-500" onClick={HandleSubmit}>
-        Run
-      </button>
+
+      <div className="flex items-center justify-center">
+        {Loading && (
+          <div className="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        )}
+
+        <button className="py-1 px-4 m-2 bg-purple-500 rounded-md hover:bg-purple-800 dark:hover:bg-green-800 dark:bg-green-500" onClick={HandleSubmit}>
+          Run
+        </button>
+      </div>
     </div>
   )
 }
