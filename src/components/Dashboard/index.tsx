@@ -105,7 +105,7 @@ export default function Dashboard() {
       <Sidebar click={onClick} />
 
       <div className="w-full flex-col h-full bg-gray-200 dark:bg-gray-800">
-        <IdeNav Fontsize={fontSizeHandle} Lang={lang} HandleSubmit={handleSubmit} handleFileChange={handleFileChange} handleFileDownload={handleFileDownload} />
+        <IdeNav Fontsize={fontSizeHandle} Lang={lang} Loading={loading} HandleSubmit={handleSubmit} handleFileChange={handleFileChange} handleFileDownload={handleFileDownload} />
         <div className="w-full flex h-5/6 ">
           <div className="sm:w-2/3 md:w-4/6 lg:w-2/3">
             <Ide lang={lang} text={text} onChange={onChange} fontSize={fontSize} handleFileChange={handleFileChange} />
