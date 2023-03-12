@@ -39,7 +39,6 @@ export default function Dashboard() {
     }
     try {
       const { data } = await axios.post(API_PATH, inputData)
-      console.log(data)
       if (data.status) setOutput(data.result)
       else setError(data.message)
       setLoading(false)
@@ -65,12 +64,16 @@ export default function Dashboard() {
   }
   const handleFileChange = async (file: FileList | null): Promise<void> => {
     if (file?.length) {
-      const fileFormat = file[0].name.split(".").pop() || ""
+      let fileFormat = file[0].name.split(".").pop() || ""
       if (Object.keys(validFormat).includes(fileFormat)) {
         var reader = new FileReader()
         reader.readAsText(file[0], "UTF-8")
         reader.onload = (e) => {
           window.localStorage.setItem(`${fileFormat}-localStorage`, JSON.stringify(e?.target?.result))
+          setText((texts) => ({
+            ...texts,
+            [fileFormat]: e?.target?.result,
+          }))
           setLang(fileFormat)
         }
       }
@@ -89,7 +92,6 @@ export default function Dashboard() {
     const data = window.localStorage.getItem(`${lang}-localStorage`)
     if (data !== null) setText(JSON.parse(data))
     else setText((texts) => ({ ...texts, [lang]: boilerplate(lang) }))
-    console.log(boilerplate(lang))
   }, [lang])
 
   useEffect(() => {
