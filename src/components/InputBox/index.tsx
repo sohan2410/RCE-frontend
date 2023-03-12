@@ -9,7 +9,7 @@ export default function InputBox({ handleInput }: Input): JSX.Element {
         autoFocus={true}
         rows={8}
         placeholder="Input"
-        className="p-2 resize-none"
+        className="p-2 resize-none rounded-lg"
         onChange={(e) => {
           return handleInput(e.target.value)
         }}
