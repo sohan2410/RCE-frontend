@@ -13,6 +13,14 @@ export interface ILang {
   javascript: string
 }
 
+export interface ILangLocalStorage {
+  c: string
+  cpp: string
+  java: string
+  py: string
+  js: string
+}
+
 export interface IIde {
   lang: string
   text: any
