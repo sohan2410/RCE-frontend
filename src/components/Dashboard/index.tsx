@@ -4,7 +4,7 @@ import { boilerplate } from "@/utils/boilerplate"
 import axios from "axios"
 import Sidebar from "../Sidebar"
 import IdeNav from "@/components/IdeNav"
-import { ILang } from "@/interface/index"
+import { ILang, ILangLocalStorage } from "@/interface/index"
 import { API_PATH } from "../../../common/Constants"
 import InputBox from "../InputBox"
 import OutputBox from "../OutputBox"
@@ -66,6 +66,7 @@ export default function Dashboard() {
     if (file?.length) {
       let fileFormat = file[0].name.split(".").pop() || ""
       if (Object.keys(validFormat).includes(fileFormat)) {
+        fileFormat = validFormat[fileFormat as keyof ILangLocalStorage]
         var reader = new FileReader()
         reader.readAsText(file[0], "UTF-8")
         reader.onload = (e) => {
