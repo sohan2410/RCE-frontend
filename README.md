@@ -1,6 +1,6 @@
-# Remote Code Executor
+# CodeBox: A Scalable, Dockerized Code Execution Sandbox
 
-Remote Code Executor (RCE) as the name suggests, is an online code executor like seen on Leetcode, etc. For the project, we have implemented an _**infinitely scalable**_ code executor to run a code snippet. It will create a new file for each code input, execute it and returns the output. It supports major languages, i.e., C/C++, Python, Javascipt, Java and can even be extended to support more languages.
+CodeBox: A Scalable, Dockerized Code Execution Sandbox as the name suggests, is an online code executor like seen on Leetcode, etc. For the project, we have implemented an _**infinitely scalable**_ code executor to run a code snippet. It will create a new file for each code input, execute it and returns the output. It supports major languages, i.e., C/C++, Python, Javascipt, Java and can even be extended to support more languages.
 
 ## Screenshots
 <img src="https://github.com/sohan2410/RCE-frontend/blob/main/public/static/images/flow2.png"></img>
